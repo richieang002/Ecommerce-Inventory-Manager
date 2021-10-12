@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-    <Login msg="Consolidating Your Ecommerce Needs" />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Login from "./components/Login.vue"
-  
+
+
   export default {
     components: {
-      Login
     },
     data() {
       return {
-        
       }
     }
   }
