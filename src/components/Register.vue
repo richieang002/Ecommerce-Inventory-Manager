@@ -1,14 +1,14 @@
 <template>
   <div class="register">
+    <body>
     <img :src="image" width="300" height="80" class="offtop"> 
     <h6>Consolidating Your Ecommerce Needs</h6>
     <div  class="center-block text-center">
       <div class="d-flex justify-content-center offtop2">
         <b-form-input
         class="inputst offtop"
-        id="input-small" 
+        id="input-small1" 
         size="sm"
-        :="firstname"
         placeholder="First Name" 
         type="text"
         style="width: 133px"
@@ -17,9 +17,8 @@
         <div class="empty">&ensp;&ensp;</div>
         <b-form-input
         class="inputst offtop"
-        id="input-small" 
+        id="input-small2" 
         size="sm"
-        :="lastname"
         placeholder="Last Name" 
         type="text"
         style="width: 133px"
@@ -28,50 +27,68 @@
       </div>
     </div>
     <div class="d-flex justify-content-center offtop2">
+      <div role="group">
         <b-form-input
         class="inputst"
-        id="input-small" 
+        id="input-small3" 
         size="sm"
-        :="username"
+        v-model="username"
+        :state="unameState"
+        aria-describedby="input-live-feedback"
         placeholder="User Name" 
         type="text"
         style="width: 280px"
         trim
         ></b-form-input>
+        <b-form-invalid-feedback id="input-live-feedback">
+
+        </b-form-invalid-feedback>
+      </div>
     </div>
     <div class="d-flex justify-content-center offtop2">
-        <b-form-input
-        class="inputst"
-        id="input-small" 
-        size="sm"
-        :="email"
-        placeholder="Email Address" 
-        type="email"
-        state="emailState"
-        style="width: 280px"
-        aria-describedby="input-small-help input-small-feedback"
-        trim
-        ></b-form-input>
+      <div role="group">
+      <b-form-input
+      class="inputst"
+      id="input-small4" 
+      size="sm"
+      v-model="email"
+      :state="emailState"
+      aria-describedby="input-live-feedback2"
+      placeholder="Email Address" 
+      type="email"
+      style="width: 280px"
+      trim
+      ></b-form-input>
+      <b-form-invalid-feedback id="input-live-feedback2">
+
+      </b-form-invalid-feedback>
+      </div>
     </div>
     <div class="d-flex justify-content-center offtop2">
-        <b-form-input
-        class="inputst"
-        id="input-small2"
-        size="sm"
-        :="password"
-        placeholder="Password" 
-        type="password"
-        state="pwState"
-        style="width: 280px"
-        aria-describedby="input-small2-help input-small2-feedback"
-        trim
-        ></b-form-input>
+      <div role="group">
+      <b-form-input
+      class="inputst"
+      id="input-small5"
+      size="sm"
+      v-model="password"
+      :state="pwState"
+      aria-describedby="input-live-feedback3"
+      placeholder="Password" 
+      type="password"
+      style="width: 280px"
+      trim
+      ></b-form-input>
+      <b-form-invalid-feedback id="input-live-feedback3">
+
+      </b-form-invalid-feedback>
+      </div>
     </div>
     <div  class="d-flex justify-content-center center-block text-center offtop3">
-        <button class="btn1" @click="loginPage()">Cancel</button>
-        <div class="empty">&ensp;&ensp;&ensp;</div>
-        <button class="btn2" @click="signUp()">Sign Up</button>
+      <button class="btn1" @click="loginPage()">Cancel</button>
+      <div class="empty">&ensp;&ensp;&ensp;</div>
+      <button class="btn2" @click="signUp()">Sign Up</button>
     </div>
+    </body>
   </div>
 </template>
 
@@ -82,7 +99,12 @@ export default {
   name: 'Register',
   data() {
     return {
-      image: image
+      image: image,
+      firstname: '',
+      lastname: '',
+      email: '',
+      username: '',
+      password: ''
     }
   },
   methods: {
@@ -90,13 +112,31 @@ export default {
       this.$router.push({ path: '/'})
     },
     signUp() {
-
+      if (this.password != "123") {
+        console.log("test")
+      }
+    }
+  },
+  computed: {
+    emailState() {
+        return this.email.length == 0 ? false : null
+    },
+    unameState() {
+        return this.username.length == 0 ? false : null
+    },
+    pwState() {
+        return this.password.length == 0 ? false : null
     }
   }
 }
 </script>
 
 <style scoped>
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .inputst {
   font-size:13px;
   background-color: #f5f5f5;

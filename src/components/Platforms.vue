@@ -1,0 +1,93 @@
+<template>
+  <div class="overview">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700&display=swap" rel="stylesheet">
+    <div class="display">
+      <div class="flexbox-container" style="display:flex; justify-content:space-between; margin-top:25px">
+        <div class="title-header" style="flex:1; text-align:left; margin-left:20px;">Platforms</div>
+        <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">Fake User <b-avatar></b-avatar></div>
+      </div>
+      <div class="flexbox-container" style="display:flex; margin-top:30px">
+        <div class="link1" style="flex:1;"><router-link to="/platforms/psummary" style="text-decoration: none;">Summary</router-link></div>
+        <div class="link" style="flex:0.2;"></div>
+        <div class="link1" style="flex:1;"><router-link to="/platforms/product" style="text-decoration: none;">Shopee</router-link></div>
+        <div class="link" style="flex:0.2;"></div>
+        <div class="link1" style="flex:1;"><router-link to="/platforms/product" style="text-decoration: none;">Lazada</router-link></div>
+        <div class="link" style="flex:0.2;"></div>
+        <div class="link1" style="flex:1;"><router-link to="/platforms/product" style="text-decoration: none;">Shopify</router-link></div>
+      </div>
+      <div style="margin-left:20px; margin-right:20px; margin-top:50px">
+      <router-view></router-view>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Overview',
+  data() {
+    return {
+        
+    }
+  },
+  props: {
+    relative: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    
+  }
+}
+</script>
+
+<style scoped>
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.inputst {
+  font-size:13px;
+  background-color: #f5f5f5;
+  color: rgb(182, 182, 182);
+  border: 0;
+}
+.offtop {
+  margin-top: 40px;
+  margin-left: 20px;
+}
+.offtop2 {
+  margin-top: 20px;
+}
+.offtop3 {
+  margin-top: 20px;
+}
+.v-sidebar-menu {
+  color: rgb(128, 128, 128);
+}
+.v-sidebar-menu .vsm--list {
+  text-align: center;
+}
+.display {
+  margin-left: 240px;
+}
+.title-header {
+  font-family: 'Mulish', sans-serif;
+  font-size: 24px;
+}
+.link1 {
+  font-family: 'Mulish', sans-serif;
+  font-size: 20px;
+  text-align: center;
+}
+
+.router-link-active {
+  color: #3751FF;
+}
+a {
+  color: rgb(163, 163, 163);
+}
+</style>

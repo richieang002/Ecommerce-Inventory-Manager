@@ -7,36 +7,23 @@
       class="loginemail"
       id="input-small" 
       size="sm"
-      :="email"
       placeholder="Email Address" 
       type="email"
-      state="emailState"
       style="width: 280px"
-      aria-describedby="input-small-help input-small-feedback"
       trim
       ></b-form-input>
-      
-      <b-form-invalid-feedback id="input-small-feedback">
-          Enter a valid email address
-      </b-form-invalid-feedback>
     </div>
+
     <div class="d-flex justify-content-center offtop2">
       <b-form-input
       class="loginpw"
       id="input-small2"
       size="sm"
-      :="password"
       placeholder="Password" 
       type="password"
-      state="pwState"
       style="width: 280px"
-      aria-describedby="input-small2-help input-small2-feedback"
       trim
       ></b-form-input>
-      
-      <b-form-invalid-feedback id="input-small2-feedback">
-          Enter a valid password
-      </b-form-invalid-feedback>
     </div>
     <div  class="center-block text-center">
       <button class="btn1" @click="registerPage()">Create Account</button>
@@ -44,7 +31,7 @@
       <button class="btn1">Forget Password</button>
     </div>
     <div  class="center-block text-center">
-      <button class="btn3 offtop2">Log in</button>
+      <button class="btn3 offtop2" @click="finishLogin()">Log in</button>
     </div>
   </div>
 </template>
@@ -55,23 +42,22 @@ import image from "./component_assets/group.png"
   export default {
     name: 'Login',
     computed: {
-      emailState() {
-        let str = this.email
-        return str.includes("@") ? true : false
-      },
-      pwState() {
-        let str = this.password
-        return str.includes("@") ? true : false
-      }
+      
     },
     data() {
       return {
-        image: image
+        image: image,
+        email: '',
+        password: ''
+        
       }
     },
     methods: {
       registerPage() {
         this.$router.push({ path: '/register'})
+      },
+      finishLogin() {
+        this.$router.push({ path: '/user'})
       }
     }
   }
