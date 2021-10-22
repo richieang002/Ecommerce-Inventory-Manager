@@ -26,7 +26,7 @@
       ></b-form-input>
     </div>
     <div  class="center-block text-center">
-      <button class="btn1" @click="registerPage()">Create Account</button>
+      <button class="btn1" @click="registerPage()">Create Account Hello</button>
       <div class="empty">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</div>
       <button class="btn1">Forget Password</button>
     </div>
