@@ -9,8 +9,7 @@
             <template #button-content>
               <b-avatar></b-avatar>
             </template>
-            <b-dropdown-item href="#">Action</b-dropdown-item>
-            <b-dropdown-item href="#">Logout</b-dropdown-item>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
           </b-dropdown>
         </div>
       </div>
@@ -126,6 +125,9 @@ body {
 }
 .v-sidebar-menu .vsm--list {
   text-align: center;
+}
+#id {
+  background-color: #F7F8FC;
 }
 .display {
   margin-left: 240px;

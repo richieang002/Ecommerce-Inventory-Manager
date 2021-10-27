@@ -36,14 +36,10 @@
     </div>
     <b-modal ref="my-modal" hide-footer title="New connection">
       <div class="d-block text-left" style="margin-left:10px">
-        <b-dropdown id="dropdown-1" text="Platforms" class="md-2">
-          <b-dropdown-item>Shopify</b-dropdown-item>
-          <b-dropdown-item>Ebay</b-dropdown-item>
-          <b-dropdown-item>Shopee</b-dropdown-item>
-          <b-dropdown-item>Qoo10</b-dropdown-item>
-          <b-dropdown-item>Taobao</b-dropdown-item>
-          <b-dropdown-item>Lazada</b-dropdown-item>
-        </b-dropdown>
+        <div class="flexbox-container" style="display:flex; justify-content:left; margin-top:15px">
+        <div class="offtop" style="margin-right:20px;">Selected:</div>
+        <b-form-select size="lg" class="selection" v-model="selected" :options="options"></b-form-select>
+        </div>
         <div class="d-flex justify-content-left offtop">
           <b-form-group label="Access Token" label-for="input-acctoken" @submit.stop.prevent>
             <b-form-input
@@ -124,6 +120,16 @@ export default {
         noSKU: "83",
         accepted: "83",
         rejected: "0",
+        selected: null,
+        options: [
+          { value: null, text: 'Please select an option' },
+          { value: 'Shopify', text: 'Shopify' },
+          { value: 'Ebay', text: 'Ebay' },
+          { value: 'Shopee', text: 'Shopee' },
+          { value: 'Qoo10', text: 'Qoo10'},
+          { value: 'Taobao', text: 'Taobao' },
+          { value: 'Lazada', text: 'Lazada'},
+        ]
     }
   },
   props: {
@@ -163,6 +169,11 @@ body {
   text-align:left;
   font-family: 'Mulish', sans-serif;
   font-size: 20px;
+}
+.selection {
+  border-style: solid;
+  border-width: thin;
+  border-color: lightgray;
 }
 .platform-body {
   border-style: solid;

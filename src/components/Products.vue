@@ -9,8 +9,7 @@
             <template #button-content>
               <b-avatar></b-avatar>
             </template>
-            <b-dropdown-item href="#">Action</b-dropdown-item>
-            <b-dropdown-item href="#">Logout</b-dropdown-item>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
           </b-dropdown>
         </div>
       </div>

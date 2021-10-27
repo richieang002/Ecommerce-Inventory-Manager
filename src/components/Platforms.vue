@@ -9,19 +9,15 @@
             <template #button-content>
               <b-avatar></b-avatar>
             </template>
-            <b-dropdown-item href="#">Action</b-dropdown-item>
-            <b-dropdown-item href="#">Logout</b-dropdown-item>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
           </b-dropdown>
         </div>
       </div>
       <div class="flexbox-container" style="display:flex; margin-top:30px">
         <div class="link1" style="flex:1;"><router-link to="/platforms/psummary" style="text-decoration: none;">Summary</router-link></div>
         <div class="link" style="flex:0.2;"></div>
-        <div class="link1" style="flex:1;"><router-link to="/platforms/product" style="text-decoration: none;">Shopee</router-link></div>
-        <div class="link" style="flex:0.2;"></div>
-        <div class="link1" style="flex:1;"><router-link to="/platforms/product" style="text-decoration: none;">Lazada</router-link></div>
-        <div class="link" style="flex:0.2;"></div>
-        <div class="link1" style="flex:1;"><router-link to="/platforms/product" style="text-decoration: none;">Shopify</router-link></div>
+        <div class="link1" style="flex:1;"><router-link to="/platforms/psummary" style="text-decoration: none;">Shopee</router-link></div>
+
       </div>
       <div style="margin-left:20px; margin-right:20px; margin-top:50px">
       <router-view></router-view>
