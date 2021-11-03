@@ -34,7 +34,7 @@
       <button class="btn1">Forget Password</button>
     </div>
     <div  class="center-block text-center">
-      <button class="btn3 offtop2" @click="finishLogin()">Log in</button>
+      <button class="btn3 offtop2">Log in</button>
     </div>
   </div>
   </form>
