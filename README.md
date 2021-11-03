@@ -8,6 +8,8 @@ npm install
 ```
 source env/bin/activate
 pip install -r requirements.txt
+
+
 ```
 
 ### Compiles and hot-reloads for development
