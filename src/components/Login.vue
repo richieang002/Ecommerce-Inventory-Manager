@@ -1,6 +1,7 @@
 <template>
+  <form @submit.prevent="handleSubmit">
   <div class="login">
-    <img :src="image" width="300" height="80" class="offtop"> 
+    <img src="./component_assets/group.png" width="300" height="80" class="offtop"> 
     <h6>Consolidating Your Ecommerce Needs</h6>
     <div class="d-flex justify-content-center offtop">
       <b-form-input
@@ -11,6 +12,7 @@
       type="email"
       style="width: 280px"
       trim
+      v-model="email"
       ></b-form-input>
     </div>
 
@@ -23,6 +25,7 @@
       type="password"
       style="width: 280px"
       trim
+      v-model="password"
       ></b-form-input>
     </div>
     <div  class="center-block text-center">
@@ -34,10 +37,11 @@
       <button class="btn3 offtop2" @click="finishLogin()">Log in</button>
     </div>
   </div>
+  </form>
 </template>
 
 <script>
-import image from "./component_assets/group.png"
+import axios from 'axios'
   
   export default {
     name: 'Login',
@@ -46,18 +50,26 @@ import image from "./component_assets/group.png"
     },
     data() {
       return {
-        image: image,
         email: '',
         password: ''
-        
       }
     },
     methods: {
       registerPage() {
         this.$router.push({ path: '/register'})
       },
-      finishLogin() {
-        this.$router.push({ path: '/user'})
+      // finishLogin() {
+      //   this.$router.push({ path: '/user'})
+      // },
+      async handleSubmit() {
+        const response = await axios.post('login', {
+          email: this.email,
+          password: this.password
+        });
+
+        localStorage.setItem('token', response.data.token);
+
+        this.$router.push({ path: '/user'});
       }
     }
   }

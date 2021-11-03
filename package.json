@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 3000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^2.0.5",
     "@popperjs/core": "^2.10.2",
+    "axios": "^0.23.0",
     "bootstrap": "^5.1.1",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
@@ -46,6 +47,7 @@
     },
     "rules": {}
   },
+  "proxy" : "http://192.168.1.88:8000/",
   "browserslist": [
     "> 1%",
     "last 2 versions",

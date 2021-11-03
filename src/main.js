@@ -6,6 +6,7 @@ import VueRouter from "vue-router"
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+import '@/components/axios'
 Vue.use(VueSidebarMenu)
 
 
