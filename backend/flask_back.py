@@ -10,7 +10,7 @@ try:
     print ("Table created successfully")
     conn.close()
 except:
-    print("Database already created")
+    print("Table already initialised, app is working")
     conn.close()
 
 app = Flask(__name__)

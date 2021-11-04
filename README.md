@@ -4,12 +4,17 @@
 ```
 npm install
 ```
+
 ## We need to use virtualenvironment now since there are python packages involved.
+### 1. Download own virtual environment
+### 2. activate virtual environment 
+####      For MacOS
+<!-- source <name of virtualenv>/bin/activate -->
+####      For Windows, but just check online to learn about how to activate virtual environment for windows
+<!-- /<name of virtualenv>/Script/activate -->
+### 3. installing all packages by reading and installing line by line in requirements.txt
 ```
-source env/bin/activate
 pip install -r requirements.txt
-
-
 ```
 
 ### Compiles and hot-reloads for development
