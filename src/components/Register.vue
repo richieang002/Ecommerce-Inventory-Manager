@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="">
   <div class="register">
     <img src="./component_assets/group.png" width="300" height="80" class="offtop"> 
     <h6>Consolidating Your Ecommerce Needs</h6>
@@ -97,11 +97,11 @@
     </div>
 
     <div  class="d-flex justify-content-center center-block text-center offtop3">
-      <button class="btn1" @click="loginPage()">Cancel</button>
+      <button class="btn1" @click="submit('returnLogin')">Cancel</button>
 
       <div class="empty">&ensp;&ensp;&ensp;</div>
 
-      <button class="btn2" >Sign Up</button>
+      <button class="btn2" @click="submit('signUp')">Sign Up</button>
     </div>
   
   </div>
@@ -123,26 +123,23 @@ export default {
     }
   },
   methods: {
-    loginPage() {
-      this.$router.push({ path: '/'})
-    },
-    // signUp() {
-    //   if (this.password != "123") {
-    //     console.log("test")
-    //   }
-    // },
-    async handleSubmit() {
-      const response = await axios.post('register', {
+    async submit(action) {
+      if (action == 'returnLogin') {
+        this.$router.push({ path: '/'})
+      }
+      else if (action == 'signUp') {
+        const response = await axios.post('register', {
         firstname: this.firstname,
         lastname: this.lastname,
         email: this.email,
         username: this.username,
         password: this.password
-      });
+        });
 
-      console.log(response);
+        console.log(response);
 
-      // this.$router.push({ path: '/user'});
+        this.$router.push({ path: '/user'});
+      }
     }
   },
   computed: {

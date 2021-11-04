@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="">
   <div class="login">
     <img src="./component_assets/group.png" width="300" height="80" class="offtop"> 
     <h6>Consolidating Your Ecommerce Needs</h6>
@@ -29,12 +29,12 @@
       ></b-form-input>
     </div>
     <div  class="center-block text-center">
-      <button class="btn1" @click="registerPage()">Create Account</button>
+      <button class="btn1" @click="submit('register')">Create Account</button>
       <div class="empty">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</div>
       <button class="btn1">Forget Password</button>
     </div>
     <div  class="center-block text-center">
-      <button class="btn3 offtop2">Log in</button>
+      <button class="btn3 offtop2" @click="submit('login')">Log in</button>
     </div>
   </div>
   </form>
@@ -55,21 +55,18 @@ import axios from 'axios'
       }
     },
     methods: {
-      registerPage() {
-        this.$router.push({ path: '/register'})
-      },
-      // finishLogin() {
-      //   this.$router.push({ path: '/user'})
-      // },
-      async handleSubmit() {
-        const response = await axios.post('login', {
-          email: this.email,
-          password: this.password
+      async submit(action) {
+        if (action == 'register') {
+          this.$router.push({ path: '/register'})
+        }
+        else if (action == 'login') {
+          const response = await axios.post('login', {
+            email: this.email,
+            password: this.password
         });
-
         localStorage.setItem('token', response.data.token);
-
         this.$router.push({ path: '/user'});
+        }
       }
     }
   }
