@@ -11,6 +11,9 @@ npm install
 ####      For MacOS
 <!-- source <name of virtualenv>/bin/activate -->
 ####      For Windows, but just check online to learn about how to activate virtual environment for windows
+
+# https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html
+
 <!-- /<name of virtualenv>/Script/activate -->
 ### 3. installing all packages by reading and installing line by line in requirements.txt
 ```
