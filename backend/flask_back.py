@@ -2,7 +2,7 @@ from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 import requests
 import sqlite3 as sql
-import ujson as json
+# import ujson as json
 
 try:
     conn = sql.connect('database.db')
@@ -89,9 +89,9 @@ def login_account():
 
     return jsonify({'task': "Successfully"}), 201
 
-@app.route('/shopify', methods=['POST'])
-def shopify():
-    if request.method == 'POST':
+# @app.route('/shopify', methods=['POST'])
+# def shopify():
+#     if request.method == 'POST':
         
 
 

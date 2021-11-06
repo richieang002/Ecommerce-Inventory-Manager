@@ -56,7 +56,7 @@ export default {
         image5: image5,
         image6: image6,
         isActive1: true,
-        isActive2: true,
+        isActive2: false,
         isActive3: false,
         isActive4: false,
         isActive5: false,
@@ -68,6 +68,9 @@ export default {
       type: Boolean,
       default: true,
     },
+  },
+  methods: {
+    
   },
   computed: {
     
