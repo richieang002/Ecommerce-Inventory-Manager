@@ -61,18 +61,21 @@ def login_account():
                 cur = con.cursor()
                
                 # cur.execute("SELECT COUNT(*) FROM Accounts WHERE email=?)",(email))
-                cur.execute("SELECT email,password FROM Accounts")
-                credentials = cur.fetchall()
+                cur.execute("SELECT email,password FROM Accounts WHERE email=? AND password=?",[email,password])
+                credentials = cur.fetchone()
 
-                for x,y in credentials:
-                    if email == x and password == y:
-                        print("Login Successful")
-                        break
-                
-
+                if credentials is None:
+                    print("User not found")
+                    return abort(400)
+                else:
+                    print("Login Successful")
+                # for x,y in credentials:
+                #     print(x,y)
+                #     if email == x and password == y:
+                #         print("Login Successful")
+                #         break
 
             con.commit()
-            msg = "Record successfully added"
 
         except:
             con.rollback()
