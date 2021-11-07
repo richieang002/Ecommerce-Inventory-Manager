@@ -65,6 +65,15 @@ import axios from 'axios'
             password: this.password
         });
         localStorage.setItem('token', response.data.key);
+
+        // save user details
+        const user = await axios.post('auth/login/', {
+            username: this.username,
+            password: this.password
+        });
+        localStorage.setItem('user', JSON.stringify(user.data));
+
+        // return to dashboard
         this.$router.push({ path: '/user'});
         }
       }
