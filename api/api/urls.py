@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^auth/', include('rest_auth.urls')),
-    url(r'^auth/register/', include('rest_auth.registration.urls'))
+    url(r'^auth/register/', include('rest_auth.registration.urls')),
+    url(r'^shopify/', include('shopify_integration.urls'))
 ]
