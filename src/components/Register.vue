@@ -117,6 +117,8 @@
       </div>
     </div>
 
+    <ul class="text-danger mt-2"><li v-for="(m, index) in msg" :key="index">{{ m }}</li></ul>
+
     <div  class="d-flex justify-content-center center-block text-center offtop3">
       <button class="btn1" @click="submit('returnLogin')">Cancel</button>
 
@@ -141,7 +143,8 @@ export default {
       email: '',
       username: '',
       password1: '',
-      password2: ''
+      password2: '',
+      msg: []
     }
   },
   methods: {
@@ -150,18 +153,21 @@ export default {
         this.$router.push({ path: '/'})
       }
       else if (action == 'signUp') {
-        const response = await axios.post('auth/register/', {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        email: this.email,
-        username: this.username,
-        password1: this.password1,
-        password2: this.password2
-        });
-
-        console.log(response);
-
-        this.$router.push({ path: '/user'});
+        try{
+          this.msg = []
+          await axios.post('auth/register/', {
+            firstname: this.firstname,
+            lastname: this.lastname,
+            email: this.email,
+            username: this.username,
+            password1: this.password1,
+            password2: this.password2
+          });
+          return this.$router.push({ path: '/user'});
+        }
+        catch (error) {
+          this.msg = Object.values(error.response.data).flat()
+        }
       }
     }
   },

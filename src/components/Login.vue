@@ -9,7 +9,7 @@
       id="input-small" 
       size="sm"
       placeholder="Username"
-      type="email"
+      type="text"
       style="width: 280px"
       trim
       v-model="username"

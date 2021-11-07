@@ -80,7 +80,9 @@ export default {
     hideModal() {
         this.$refs['my-modal'].hide()
     },
-    logoutfn() {
+    async logoutfn() {
+      await localStorage.removeItem('token');
+      await localStorage.removeItem('user');
       this.$router.push({ path: '/'});
     }
   }
