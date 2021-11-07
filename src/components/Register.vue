@@ -82,13 +82,34 @@
         class="inputst"
         id="input-small5"
         size="sm"
-        :state="pwState"
+        :state="pw1State"
         aria-describedby="input-live-feedback3"
         placeholder="Password" 
         type="password"
         style="width: 280px"
         trim
-        v-model="password"
+        v-model="password1"
+        ></b-form-input>
+
+        <b-form-invalid-feedback id="input-live-feedback3"></b-form-invalid-feedback>
+
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center offtop2">
+      <div role="group">
+
+        <b-form-input
+        class="inputst"
+        id="input-small5"
+        size="sm"
+        :state="pw2State"
+        aria-describedby="input-live-feedback3"
+        placeholder="Confirm Password"
+        type="password"
+        style="width: 280px"
+        trim
+        v-model="password2"
         ></b-form-input>
 
         <b-form-invalid-feedback id="input-live-feedback3"></b-form-invalid-feedback>
@@ -119,7 +140,8 @@ export default {
       lastname: '',
       email: '',
       username: '',
-      password: ''
+      password1: '',
+      password2: ''
     }
   },
   methods: {
@@ -128,12 +150,13 @@ export default {
         this.$router.push({ path: '/'})
       }
       else if (action == 'signUp') {
-        const response = await axios.post('register', {
+        const response = await axios.post('auth/register/', {
         firstname: this.firstname,
         lastname: this.lastname,
         email: this.email,
         username: this.username,
-        password: this.password
+        password1: this.password1,
+        password2: this.password2
         });
 
         console.log(response);
@@ -149,8 +172,11 @@ export default {
     unameState() {
         return this.username.length == 0 ? false : null
     },
-    pwState() {
-        return this.password.length == 0 ? false : null
+    pw1State() {
+        return this.password1.length == 0 ? false : null
+    },
+    pw2State() {
+        return this.password1.length == 0 ? false : null
     }
   }
 }

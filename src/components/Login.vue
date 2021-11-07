@@ -8,11 +8,11 @@
       class="loginemail"
       id="input-small" 
       size="sm"
-      placeholder="Email Address" 
+      placeholder="Username"
       type="email"
       style="width: 280px"
       trim
-      v-model="email"
+      v-model="username"
       ></b-form-input>
     </div>
 
@@ -50,7 +50,7 @@ import axios from 'axios'
     },
     data() {
       return {
-        email: '',
+        username: '',
         password: ''
       }
     },
@@ -60,11 +60,11 @@ import axios from 'axios'
           this.$router.push({ path: '/register'})
         }
         else if (action == 'login') {
-          const response = await axios.post('login', {
-            email: this.email,
+          const response = await axios.post('auth/login/', {
+            username: this.username,
             password: this.password
         });
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', response.data.key);
         this.$router.push({ path: '/user'});
         }
       }
