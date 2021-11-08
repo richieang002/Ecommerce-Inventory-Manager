@@ -87,9 +87,10 @@ export default {
     },
     async exportData(){
       let response = await axios.post('shopify/products/export/')
-      const blob = new Blob([response.data], { type: "application/csv" });
+      const blob = new Blob([response.data], { type: "text/csv" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', 'export.csv');
       link.click();
       URL.revokeObjectURL(link.href);
     }
