@@ -28,6 +28,8 @@
       v-model="password"
       ></b-form-input>
     </div>
+        <ul class="text-danger mt-2"><li v-for="(m, index) in msg" :key="index">{{ m }}</li></ul>
+
     <div  class="center-block text-center">
       <button class="btn1" @click="submit('register')">Create Account</button>
       <div class="empty">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</div>
@@ -51,7 +53,8 @@ import axios from 'axios'
     data() {
       return {
         username: '',
-        password: ''
+        password: '',
+        msg: '',
       }
     },
     methods: {
@@ -60,22 +63,27 @@ import axios from 'axios'
           this.$router.push({ path: '/register'})
         }
         else if (action == 'login') {
-          const response = await axios.post('auth/login/', {
+          try{
+            const response = await axios.post('auth/login/', {
             username: this.username,
             password: this.password
-        });
-        localStorage.setItem('token', response.data.key);
+            });
+            localStorage.setItem('token', response.data.key);
 
-        // save user details
-        const user = await axios.get('auth/user/', {
-          headers: {
-            Authorization: `Token ${response.data.key}`
+            // save user details
+            const user = await axios.get('auth/user/', {
+              headers: {
+                Authorization: `Token ${response.data.key}`
+              }
+            });
+            localStorage.setItem('user', JSON.stringify(user.data));
+
+            // return to dashboard
+            this.$router.push({ path: '/user'});
           }
-        });
-        localStorage.setItem('user', JSON.stringify(user.data));
-
-        // return to dashboard
-        this.$router.push({ path: '/user'});
+          catch (error) {
+            this.msg = Object.values(error.response.data).flat()
+          }
         }
       }
     }

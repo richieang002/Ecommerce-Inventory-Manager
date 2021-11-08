@@ -43,8 +43,8 @@
       small
       @filtered="onFiltered"
     >
-      <template #cell(Image)="row">
-        <b-img class="myImage" fluid v-bind:src=row.item.Image rounded="Rounded image" alt="image path" width="75">
+      <template #cell(image)="row">
+        <b-img class="myImage" fluid v-bind:src=row.item.image rounded="Rounded image" alt="image path" width="75">
         </b-img>
       </template>
       <template #cell(Edit)="row">
@@ -97,22 +97,13 @@
 
 </style>
 <script>
+  import axios from "./axios";
+
   export default {
     data() {
       return {
-        items: [
-          { Image: "https://www.tutorialsplane.com/wp-content/uploads/2018/02/27867786_1714460465242017_6847995972742989230_n.jpg", Item: 'Item Name1', Tags: 'A B' , Quantity: 10, SKU:'itemSKU1', Platform:'platformA , PlatformE, PlatformF', Collection:'A , B, C'},
-          { Image: "https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", Item: 'Item Name2', Tags: 'A B' , Quantity: 10, SKU:'itemSKU2', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name3', Tags: 'A B' , Quantity: 10, SKU:'itemSKU3', Platform:'platformC', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name4', Tags: 'A B' , Quantity: 10, SKU:'itemSKU4', Platform:'platformD', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name5', Tags: 'A B' , Quantity: 10, SKU:'itemSKU5', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name6', Tags: 'A B' , Quantity: 10, SKU:'itemSKU6', Platform:'platformC', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name7', Tags: 'A B' , Quantity: 10, SKU:'itemSKU7', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name8', Tags: 'A B' , Quantity: 10, SKU:'itemSKU8', Platform:'platformC', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name9', Tags: 'A B' , Quantity: 10, SKU:'itemSKU9', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name10', Tags: 'A B' , Quantity: 10, SKU:'itemSKU10', Platform:'platformC', Collection:'A , B, C'}
-        ],
-        fields: ['Image', 'Item', 'Platform','Collection',"Edit"],
+        items: [],
+        fields: ['image', 'title', 'platform','Collection',"Edit"],
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
@@ -154,6 +145,15 @@
         // Trigger pagination to update the number of buttons/pages due to filtering
         this.totalRows = filteredItems.length
         this.currentPage = 1
+      }
+    },
+    async created() {
+      try{
+        let response = (await axios.get('shopify/products/')).data
+        this.items = response.products
+      }
+      catch (e) {
+        console.log(e)
       }
     }
   }
