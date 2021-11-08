@@ -48,7 +48,7 @@
         </b-img>
       </template>
       <template #cell(Delete)="row">
-        <b-button size="sm" @click="edit(row.items, row.index, $event.target)" class="mr-1 btn-danger">
+        <b-button size="sm" @click="edit(row.items, row.item, $event.target)" class="mr-1 btn-danger">
          Delete
         </b-button>
       </template>
@@ -139,11 +139,12 @@
       this.totalRows = this.items.length
     },
     methods: {
-      edit(items, index, button) {
-        this.infoModal.title = `Delete: ${this.items[index].title}`
+      edit(items, item, button) {
+        console.log(item)
+        this.infoModal.title = `Delete: ${item.title}`
         this.infoModal.content = JSON.stringify(items, null, 2)
         this.msg = ''
-        this.selectedItem = this.items[index]
+        this.selectedItem = item
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
       async delete_product() {
@@ -152,9 +153,9 @@
           return
         }
         try{
-        (await axios.post('shopify/product/delete/', {
+        await axios.post('shopify/product/delete/', {
           id: this.selectedItem.id
-        })).data
+        })
         this.items = this.items.filter(item => {
           return item.id !== this.selectedItem.id
         })
