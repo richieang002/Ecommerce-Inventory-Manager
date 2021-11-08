@@ -15,24 +15,24 @@
                   <div>
                     {{store.shop_url}}
                   </div>
-                <b-img thumbnail fluid v-on:click="activeIntegration(1)" :src="image1" v-bind:class="{ greenborder: isActive1 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(1)" :src="image1" v-bind:class="{ grayborder: isActive1, greenborder: active }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(2)" :src="image2" v-bind:class="{ greenborder: isActive2 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(2)" :src="image2" v-bind:class="{ grayborder: isActive2 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(3)" :src="image3" v-bind:class="{ greenborder: isActive3 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(3)" :src="image3" v-bind:class="{ grayborder: isActive3 }"></b-img>
                 </b-col>
             </b-row>
             <b-row>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(4)" :src="image4" v-bind:class="{ greenborder: isActive4 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(4)" :src="image4" v-bind:class="{ grayborder: isActive4 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(5)" :src="image5" v-bind:class="{ greenborder: isActive5 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(5)" :src="image5" v-bind:class="{ grayborder: isActive5 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(6)" :src="image6" v-bind:class="{ greenborder: isActive6 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(6)" :src="image6" v-bind:class="{ grayborder: isActive6 }"></b-img>
                 </b-col>
             </b-row>
         </b-container>
@@ -88,6 +88,7 @@ export default {
         isActive4: false,
         isActive5: false,
         isActive6: false,
+        active: false,
       shopURL: '',
       msg: '',
       store: {}
@@ -146,6 +147,7 @@ export default {
       console.log(store)
       if(store.user === JSON.parse(user).pk){
         this.store = store
+        this.active = true
       }
     })
   }
@@ -196,9 +198,14 @@ body {
   font-family: 'Modak', cursive;
   margin-top: 10px;
 }
+.grayborder {
+  border-style: solid;
+  border-color: gray;
+  border-width: medium;
+}
 .greenborder {
   border-style: solid;
-  border-color: rgb(35, 255, 152);
+  border-color: green;
   border-width: medium;
 }
 </style>
