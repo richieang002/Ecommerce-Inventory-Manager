@@ -4,7 +4,7 @@
     <div class="display">
       <div class="flexbox-container" style="display:flex; justify-content:space-between; margin-top:25px">
         <div class="title-header" style="flex:1; text-align:left; margin-left:20px;">Overview</div>
-        <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">Fake User <b-avatar></b-avatar></div>
+        <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">{{username}} <b-avatar></b-avatar></div>
       </div>
       <div style="margin-left:20px; margin-right:20px; margin-top:50px">
       <router-view></router-view>
@@ -19,7 +19,7 @@ export default {
   name: 'Overview',
   data() {
     return {
-        
+        username: ''
     }
   },
   props: {
@@ -30,6 +30,9 @@ export default {
   },
   computed: {
     
+  },
+  created() {
+    this.username = JSON.parse(localStorage.getItem('user')).username
   }
 }
 </script>

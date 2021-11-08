@@ -47,9 +47,9 @@
         <b-img class="myImage" fluid v-bind:src=row.item.image rounded="Rounded image" alt="image path" width="75">
         </b-img>
       </template>
-      <template #cell(Edit)="row">
-        <b-button size="sm" @click="edit(row.items, row.index, $event.target)" class="mr-1">
-         Edit
+      <template #cell(Delete)="row">
+        <b-button size="sm" @click="edit(row.items, row.index, $event.target)" class="mr-1 btn-danger">
+         Delete
         </b-button>
       </template>
 
@@ -61,17 +61,19 @@
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
 
      <template>
-      <p>DUMMY TEXT DK EDIT WHAT</p>
+      <p>Do you want to delete this product?</p>
+       <b-form-checkbox v-model="shopify">&nbsp;Shopify</b-form-checkbox>
+       <div><span class="text-danger">{{msg}}</span></div>
     </template>
 
       <pre>{{ infoModal.Items }}</pre>
-      <template #modal-footer="{ ok, cancel}">
+      <template #modal-footer="{ cancel}">
       <!-- Emulate built in modal footer ok and cancel button actions -->
-      <b-button size="sm" variant="success" @click="ok()">
-        Save
+      <b-button size="sm" variant="secondary" @click="cancel()">
+        Cancel
       </b-button>
-      <b-button size="sm" variant="danger" @click="cancel()">
-        Discard
+      <b-button size="sm" variant="danger" @click="delete_product">
+        Delete
       </b-button>
     </template>
     </b-modal>
@@ -83,7 +85,7 @@
     <b-col class="my-1">
         <b-pagination
           v-model="currentPage"
-          :total-rows="totalRows"
+          :total-rows="rows"
           :per-page="perPage"
           align="right"
           size="sm"
@@ -103,8 +105,7 @@
     data() {
       return {
         items: [],
-        fields: ['image', 'title', 'platform','Collection',"Edit"],
-        totalRows: 1,
+        fields: ['image', 'title', 'platform','Collection',"Delete"],
         currentPage: 1,
         perPage: 5,
         //pageOptions: [5, 10, 15, { value: 100, text: "Show More" }],
@@ -114,10 +115,16 @@
           id: 'info-modal',
           title: '',
           content: ''
-        }
+        },
+        shopify: false,
+        msg: '',
+        selectedItem: {}
       }
     },
     computed: {
+      rows() {
+        return this.items.length
+      },
       sortOptions() {
         // Create an options list from our fields
         return this.fields
@@ -133,9 +140,30 @@
     },
     methods: {
       edit(items, index, button) {
-        this.infoModal.title = `Edit: ${index}`
+        this.infoModal.title = `Delete: ${this.items[index].title}`
         this.infoModal.content = JSON.stringify(items, null, 2)
+        this.msg = ''
+        this.selectedItem = this.items[index]
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+      },
+      async delete_product() {
+        if(!this.shopify){
+          this.msg = 'Please select platform to delete'
+          return
+        }
+        try{
+        (await axios.post('shopify/product/delete/', {
+          id: this.selectedItem.id
+        })).data
+        this.items = this.items.filter(item => {
+          return item.id !== this.selectedItem.id
+        })
+        alert('Update Success')
+        this.$root.$emit('bv::hide::modal', this.infoModal.id)
+      }
+      catch (e) {
+        console.log(e)
+      }
       },
         resetInfoModal() {
         this.infoModal.title = ''
