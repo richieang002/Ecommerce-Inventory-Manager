@@ -3,37 +3,63 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">
     <p class="title">Integrations</p>
-    <button type="button" class="btn3">Connect new platform</button>
+    <button type="button" v-on:click="openModel()" class="btn3">Connect new platform</button>
     <div class="btn5">O</div>
-    <div class="btn4">Connected</div>
+    <div class="btn4">Connected </div>
+
     <div class="flexbox-container platform-body" style="display:flex; justify-content:space-evenly; margin-bottom:30px">
         <div style="margin:50px 50px 50px 50px">
         <b-container fluid class="p-4">
             <b-row>
                 <b-col>
-                <b-img thumbnail fluid :src="image1" v-bind:class="{ greenborder: isActive1 }"></b-img>
+                  <div>
+                    {{store.shop_url}}
+                  </div>
+                <b-img thumbnail fluid v-on:click="activeIntegration(1)" :src="image1" v-bind:class="{ greenborder: isActive1 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid :src="image2" v-bind:class="{ greenborder: isActive2 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(2)" :src="image2" v-bind:class="{ greenborder: isActive2 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid :src="image3" v-bind:class="{ greenborder: isActive3 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(3)" :src="image3" v-bind:class="{ greenborder: isActive3 }"></b-img>
                 </b-col>
             </b-row>
             <b-row>
                 <b-col>
-                <b-img thumbnail fluid :src="image4" v-bind:class="{ greenborder: isActive4 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(4)" :src="image4" v-bind:class="{ greenborder: isActive4 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid :src="image5" v-bind:class="{ greenborder: isActive5 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(5)" :src="image5" v-bind:class="{ greenborder: isActive5 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid :src="image6" v-bind:class="{ greenborder: isActive6 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(6)" :src="image6" v-bind:class="{ greenborder: isActive6 }"></b-img>
                 </b-col>
             </b-row>
         </b-container>
         </div>
     </div>
+    <b-modal ref="my-modal" hide-footer title="Connect To Shopify">
+      <div class="d-block text-center">
+        <div class="d-flex justify-content-center offtop">
+          <b-form-input
+          id="input-small"
+          size="sm"
+          placeholder="Store URL"
+          type="text"
+          style="width: 280px"
+          trim
+          v-model="shopURL"
+          ></b-form-input>
+        </div>
+        <div>
+          <span class="text-danger">{{msg}}</span>
+        </div>
+      </div>
+      <div class="flexbox-container" style="display:flex; justify-content:space-between; margin-top:25px">
+      <b-button class="mt-2" variant="outline-secondary" block @click="hideModal">Cancel</b-button>
+      <b-button class="mt-2" variant="outline-danger" block @click="connect">Connect</b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -44,6 +70,7 @@ import image3 from "./component_assets/shopee.png"
 import image4 from "./component_assets/qoo.png"
 import image5 from "./component_assets/taobao.png"
 import image6 from "./component_assets/lazada.png"
+import axios from './axios'
 
 export default {
   name: 'Connect',
@@ -61,6 +88,9 @@ export default {
         isActive4: false,
         isActive5: false,
         isActive6: false,
+      shopURL: '',
+      msg: '',
+      store: {}
     }
   },
   props: {
@@ -70,10 +100,54 @@ export default {
     },
   },
   methods: {
-    
+    activeIntegration(val){
+      for(let i=1; i<7; i++){
+        this[`isActive${i}`] = false
+      }
+      this[`isActive${val}`] = true
+    },
+    openModel(){
+      this.$refs['my-modal'].show();
+    },
+    hideModal(){
+      this.$refs['my-modal'].hide();
+    },
+    connect(){
+      if(this.shopURL){
+        window.location.href = 'http://localhost:8000/shopify/login/?shop='+this.shopURL
+      }
+      else{
+        this.msg = 'Please enter shop url'
+      }
+    }
   },
   computed: {
     
+  },
+  async mounted() {
+    let user = await localStorage.getItem('user')
+    if(this.$route.query.access_code && this.$route.query.shop_url){
+      try{
+        await axios.post('shopify/shopify_shop/', {
+            shop_url: this.$route.query.shop_url,
+            access_code: this.$route.query.access_code,
+            user: JSON.parse(user).pk
+        })
+        alert('shopify integration complete')
+      }
+      catch (e) {
+        alert('shopify integration failed')
+      }
+      this.$router.push({ query: {} })
+    }
+
+    let stores = (await axios.get('shopify/shopify_shop/')).data
+    stores.forEach(store => {
+      console.log(store)
+      if(store.user === JSON.parse(user).pk){
+        this.store = store
+      }
+    })
   }
 }
 </script>

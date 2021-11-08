@@ -67,9 +67,10 @@ import axios from 'axios'
         localStorage.setItem('token', response.data.key);
 
         // save user details
-        const user = await axios.post('auth/login/', {
-            username: this.username,
-            password: this.password
+        const user = await axios.get('auth/user/', {
+          headers: {
+            Authorization: `Token ${response.data.key}`
+          }
         });
         localStorage.setItem('user', JSON.stringify(user.data));
 
