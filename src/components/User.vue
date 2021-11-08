@@ -5,7 +5,7 @@
     <sidebar-menu :menu="menu" width="240px" hideToggle="true">
       <div slot="header" class="offtop">
         <b-avatar variant="primary" style="background-color:blue" text="L" size="md"></b-avatar>
-        &ensp;Store's Name
+        &ensp;{{username}}'s Store
       </div>
     </sidebar-menu>
     <b-modal ref="my-modal" hide-footer title="Logout screen">
@@ -27,6 +27,7 @@ export default {
   name: 'User',
   data() {
     return {
+      username: '',
         menu: [
             {
             header: 'Main Navigation',
@@ -72,6 +73,9 @@ export default {
       type: Boolean,
       default: false
     },
+  },
+  created() {
+    this.username = JSON.parse(localStorage.getItem('user')).username
   },
   methods: {
     logoutbtn() {
