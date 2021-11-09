@@ -168,9 +168,9 @@ def shopify_product_export(request):
 @api_view(['POST'])
 def reset_password(request):
     username = request.data['username']
-    subject = 'New Password'
+    subject = 'LazeAPI New Password'
     new_password = binascii.b2a_hex(os.urandom(8)).decode("utf-8")
-    message = 'your new password is - ' + str(new_password)
+    message = 'Thank you for using our service! We have kindly resetted your password.\nPlease do not share your password with anyone.\nNew password is - ' + str(new_password)
     email_from = settings.EMAIL_HOST_USER
     try:
         user = User.objects.get(username=username)
