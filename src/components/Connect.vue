@@ -15,24 +15,24 @@
                   <div>
                     {{store.shop_url}}
                   </div>
-                <b-img thumbnail fluid v-on:click="activeIntegration(1)" :src="image1" v-bind:class="{ grayborder: isActive1, greenborder: active }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(1)" :src="imageslist.image1" v-bind:class="{ grayborder: isActive1, greenborder: active }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(2)" :src="image2" v-bind:class="{ grayborder: isActive2 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(2)" :src="imageslist.image2" v-bind:class="{ grayborder: isActive2 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(3)" :src="image3" v-bind:class="{ grayborder: isActive3 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(3)" :src="imageslist.image3" v-bind:class="{ grayborder: isActive3 }"></b-img>
                 </b-col>
             </b-row>
             <b-row>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(4)" :src="image4" v-bind:class="{ grayborder: isActive4 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(4)" :src="imageslist.image4" v-bind:class="{ grayborder: isActive4 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(5)" :src="image5" v-bind:class="{ grayborder: isActive5 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(5)" :src="imageslist.image5" v-bind:class="{ grayborder: isActive5 }"></b-img>
                 </b-col>
                 <b-col>
-                <b-img thumbnail fluid v-on:click="activeIntegration(6)" :src="image6" v-bind:class="{ grayborder: isActive6 }"></b-img>
+                <b-img thumbnail fluid v-on:click="activeIntegration(6)" :src="imageslist.image6" v-bind:class="{ grayborder: isActive6 }"></b-img>
                 </b-col>
             </b-row>
         </b-container>
@@ -76,7 +76,7 @@ export default {
   name: 'Connect',
   data() {
     return {
-        imageslist: { image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6,},
+        imageslist: { image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6 },
         isActive1: true,
         isActive2: false,
         isActive3: false,
@@ -145,25 +145,26 @@ export default {
         this.active = true
       }
     })
-// start
-    connectbtn() {
-      this.$refs['my-modal'].show();
-    },
-    hideModal() {
-      this.$refs['my-modal'].hide()
-    },
-    connect() {
-      this.$refs['my-modal2'].show();
-    },
-    hideModal2() {
-      this.$refs['my-modal2'].hide()
-    },
-    confirm() {
-      this.$refs['my-modal'].hide()
-      this.$refs['my-modal2'].hide()
-    }
-// end 
   }
+// // start
+//     connectbtn() {
+//       this.$refs['my-modal'].show();
+//     },
+//     hideModal() {
+//       this.$refs['my-modal'].hide();
+//     },
+//     connect() {
+//       this.$refs['my-modal2'].show();
+//     },
+//     hideModal2() {
+//       this.$refs['my-modal2'].hide();
+//     },
+//     confirm() {
+//       this.$refs['my-modal'].hide();
+//       this.$refs['my-modal2'].hide();
+//     }
+// // end 
+  
 }
 </script>
 
@@ -223,7 +224,7 @@ body {
 }
 .greenborder {
   border-style: solid;
-  border-color: green;
+  border-color: rgb(35, 255, 152);
   border-width: medium;
 }
 .offtop {

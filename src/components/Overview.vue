@@ -78,7 +78,7 @@ export default {
   name: 'Overview',
   data() {
     return {
-        username: ''
+        username: '',
         items: { dailyOrders: 'asd', weeklyOrders: '123', purchasePerHour: '222', revPerDay: '123',  netRev: '567'},
         unfulfilled: '60',
         overdue: '30',
