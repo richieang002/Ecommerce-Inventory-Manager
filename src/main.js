@@ -35,6 +35,7 @@ Vue.config.productionTip = false
 
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
+import ForgetPassword from '@/components/ForgetPassword.vue'
 import User from '@/components/User.vue'
 import Summary from '@/components/Summary.vue'
 import Product from '@/components/Product.vue'
@@ -61,6 +62,14 @@ const router = new VueRouter({
       path: '/register',
       name: 'Register',
       component: Register,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/forget-password',
+      name: 'ForgetPassword',
+      component: ForgetPassword,
       meta: {
         guest: true
       }

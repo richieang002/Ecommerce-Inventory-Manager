@@ -15,28 +15,16 @@
       v-model="username"
       ></b-form-input>
     </div>
-
-    <div class="d-flex justify-content-center offtop2">
-      <b-form-input
-      class="loginpw"
-      id="input-small2"
-      size="sm"
-      placeholder="Password" 
-      type="password"
-      style="width: 280px"
-      trim
-      v-model="password"
-      ></b-form-input>
-    </div>
+    <div v-if="sent"><span>Please check your email for password.</span></div>
         <ul class="text-danger mt-2"><li v-for="(m, index) in msg" :key="index">{{ m }}</li></ul>
 
     <div  class="center-block text-center">
       <button class="btn1" @click="submit('register')">Create Account</button>
       <div class="empty">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</div>
-      <button class="btn1" @click="submit('forgetPassword')">Forget Password</button>
+      <button class="btn1" @click="submit('login')">Log In</button>
     </div>
     <div  class="center-block text-center">
-      <button class="btn3 offtop2" @click="submit('login')">Log in</button>
+      <button class="btn3 offtop2" @click="submit('forget')">Send Password</button>
     </div>
   </div>
   </form>
@@ -46,15 +34,15 @@
 import axios from 'axios'
   
   export default {
-    name: 'Login',
+    name: 'ForgetPassword',
     computed: {
       
     },
     data() {
       return {
         username: '',
-        password: '',
         msg: '',
+        sent: false,
       }
     },
     methods: {
@@ -62,27 +50,15 @@ import axios from 'axios'
         if (action == 'register') {
           this.$router.push({ path: '/register'})
         }
-        else if (action == 'forgetPassword') {
-          this.$router.push({ path: '/forget-password'})
-        }
         else if (action == 'login') {
+          this.$router.push({ path: '/'})
+        }
+        else if (action == 'forget') {
           try{
-            const response = await axios.post('auth/login/', {
-            username: this.username,
-            password: this.password
+            await axios.post('password-reset/', {
+            username: this.username
             });
-            localStorage.setItem('token', response.data.key);
-
-            // save user details
-            const user = await axios.get('auth/user/', {
-              headers: {
-                Authorization: `Token ${response.data.key}`
-              }
-            });
-            localStorage.setItem('user', JSON.stringify(user.data));
-
-            // return to dashboard
-            this.$router.push({ path: '/user'});
+            this.sent = true
           }
           catch (error) {
             this.msg = Object.values(error.response.data).flat()

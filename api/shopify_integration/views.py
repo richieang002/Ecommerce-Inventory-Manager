@@ -1,6 +1,9 @@
 import binascii
 import os
 
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
 import shopify
 from rest_framework.response import Response
 
@@ -71,7 +74,10 @@ def shopify_products(request):
     for x in products:
         for y in x.attributes['variants']:
             image = list(filter(lambda z: z.attributes['id'] == y.attributes['image_id'], x.attributes['images']))
-            image = image[0] if len(image) else None
+            if len(image):
+                image = image[0]
+            else:
+                image = x.image
             data.append({
                 'id': x.attributes['id'],
                 'platform': 'shopify',
@@ -105,6 +111,7 @@ def shopify_product_update(request):
 
     return Response({'message': 'update product success'}, status=200)
 
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def shopify_product_discard(request):
@@ -134,7 +141,10 @@ def shopify_product_export(request):
     for x in products:
         for y in x.attributes['variants']:
             image = list(filter(lambda z: z.attributes['id'] == y.attributes['image_id'], x.attributes['images']))
-            image = image[0] if len(image) else None
+            if len(image):
+                image = image[0]
+            else:
+                pass
             data.append({
                 'id': x.attributes['id'],
                 'platform': 'shopify',
@@ -153,3 +163,25 @@ def shopify_product_export(request):
     for row in data:
         writer.writerow(row.values())
     return response
+
+
+@api_view(['POST'])
+def reset_password(request):
+    username = request.data['username']
+    subject = 'New Password'
+    new_password = binascii.b2a_hex(os.urandom(8)).decode("utf-8")
+    message = 'your new password is - ' + str(new_password)
+    email_from = settings.EMAIL_HOST_USER
+    try:
+        user = User.objects.get(username=username)
+    except:
+        return Response({'message': 'username not found'}, status=400)
+    recipient_list = [user.email, ]
+    try:
+        send_mail(subject, message, email_from, recipient_list)
+        user.set_password(new_password)  # replace with your real password
+        user.save()
+    except:
+        return Response({'message': 'mail not sent'}, status=400)
+
+    return Response({'message': 'password change success'}, status=200)
