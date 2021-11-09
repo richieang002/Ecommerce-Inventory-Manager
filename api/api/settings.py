@@ -155,3 +155,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # shopify credentials
 SHOPIFY_API_KEY = 'becc1411b181277c95a4d6ab39e6eeb8'
 SHOPIFY_API_SECRET = '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'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'lazeapi6@gmail.com'
+EMAIL_HOST_PASSWORD = 'abplzzaiomvjggof'
