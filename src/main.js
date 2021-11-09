@@ -6,12 +6,16 @@ import VueRouter from "vue-router"
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+
+import '@/components/axios'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faUserSecret)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 Vue.use(VueSidebarMenu)
 
 
@@ -43,16 +47,23 @@ import Export from '@/components/Export.vue'
 import Psummary from '@/components/Psummary.vue'
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        guest: true
+      }
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: {
+        guest: true
+      }
     },
     {
       path: '/user',
@@ -90,9 +101,34 @@ const router = new VueRouter({
             { path: "product", component: Product },
           ]
         },
-       ]
+       ],
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
+})
+
+// Meta Handling
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem('token') == null) {
+      next({
+        path: '/',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (localStorage.getItem('token') == null) {
+      next()
+    } else {
+      next({ name: 'User' })
+    }
+  } else {
+    next()
+  }
 })
 
 new Vue({

@@ -3,95 +3,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">
     <p class="title">Integrations</p>
-    <button type="button" class="btn3" @click="connectbtn">Connect new platform</button>
+    <button type="button" v-on:click="openModel()" class="btn3">Connect new platform</button>
     <div class="btn5">O</div>
-    <div class="btn4">Connected</div>
+    <div class="btn4">Connected </div>
+
     <div class="flexbox-container platform-body" style="display:flex; justify-content:space-evenly; margin-bottom:30px">
       <div style="margin:50px 50px 50px 50px">
         <b-container fluid class="p-4">
-          <b-row>
-            <b-col>
-            <b-img thumbnail fluid :src="imageslist.image1" v-bind:class="{ greenborder: isActive1 }"></b-img>
-            </b-col>
-            <b-col>
-            <b-img thumbnail fluid :src="imageslist.image2" v-bind:class="{ greenborder: isActive2 }"></b-img>
-            </b-col>
-            <b-col>
-            <b-img thumbnail fluid :src="imageslist.image3" v-bind:class="{ greenborder: isActive3 }"></b-img>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-            <b-img thumbnail fluid :src="imageslist.image4" v-bind:class="{ greenborder: isActive4 }"></b-img>
-            </b-col>
-            <b-col>
-            <b-img thumbnail fluid :src="imageslist.image5" v-bind:class="{ greenborder: isActive5 }"></b-img>
-            </b-col>
-            <b-col>
-            <b-img thumbnail fluid :src="imageslist.image6" v-bind:class="{ greenborder: isActive6 }"></b-img>
-            </b-col>
-          </b-row>
+            <b-row>
+                <b-col>
+                  <div>
+                    {{store.shop_url}}
+                  </div>
+                <b-img thumbnail fluid v-on:click="activeIntegration(1)" :src="image1" v-bind:class="{ grayborder: isActive1, greenborder: active }"></b-img>
+                </b-col>
+                <b-col>
+                <b-img thumbnail fluid v-on:click="activeIntegration(2)" :src="image2" v-bind:class="{ grayborder: isActive2 }"></b-img>
+                </b-col>
+                <b-col>
+                <b-img thumbnail fluid v-on:click="activeIntegration(3)" :src="image3" v-bind:class="{ grayborder: isActive3 }"></b-img>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col>
+                <b-img thumbnail fluid v-on:click="activeIntegration(4)" :src="image4" v-bind:class="{ grayborder: isActive4 }"></b-img>
+                </b-col>
+                <b-col>
+                <b-img thumbnail fluid v-on:click="activeIntegration(5)" :src="image5" v-bind:class="{ grayborder: isActive5 }"></b-img>
+                </b-col>
+                <b-col>
+                <b-img thumbnail fluid v-on:click="activeIntegration(6)" :src="image6" v-bind:class="{ grayborder: isActive6 }"></b-img>
+                </b-col>
+            </b-row>
         </b-container>
       </div>
     </div>
-    <b-modal ref="my-modal" hide-footer title="New connection">
-      <div class="d-block text-left" style="margin-left:10px">
-        <div class="flexbox-container" style="display:flex; justify-content:left; margin-top:15px">
-        <div class="offtop" style="margin-right:20px;">Selected:</div>
-        <b-form-select size="lg" class="selection" v-model="selected" :options="options"></b-form-select>
-        </div>
-        <div class="d-flex justify-content-left offtop">
-          <b-form-group label="Access Token" label-for="input-acctoken" @submit.stop.prevent>
-            <b-form-input
-            class="accesstoken"
-            id="input-acctoken" 
-            size="sm"
-            placeholder="Access Token" 
-            type="number"
-            style="width: 420px"
-            trim
-            ></b-form-input>
-          </b-form-group>
-        </div>
-        <div class="d-flex justify-content-left offtop">
-          <b-form-group label="App Key" label-for="input-appkey" @submit.stop.prevent>
-            <b-form-input
-            class="appkey"
-            id="input-appkey" 
-            size="sm"
-            placeholder="App Key" 
-            type="number"
-            style="width: 420px"
-            trim
-            ></b-form-input>
-          </b-form-group>
-        </div>
-      </div>
-      <div class="flexbox-container" style="display:flex; justify-content:center; margin-top:25px">
-      <b-button class="mt-2" variant="outline-secondary" block @click="hideModal">Cancel</b-button>
-      <b-button class="mt-2" variant="outline-primary" block @click="connect" style="margin-left:40px">Connect</b-button>
-      </div>
-    </b-modal>
-    <b-modal ref="my-modal2" hide-footer hide-header size="sm">
+    <b-modal ref="my-modal" hide-footer title="Connect To Shopify">
       <div class="d-block text-center">
-        <div class="flexbox-container" style="flex-direction:column">
-          <div class="boxer">Platform
-            <div style="font-family: 'Mulish', sans-serif;"> {{ platformname }} </div>
-          </div>
-          <div class="boxer">Number of SKUs
-            <div style="font-family: 'Mulish', sans-serif;"> {{ noSKU }} </div>
-          </div>
-          <div class="boxer">Accepted
-            <div style="font-family: 'Mulish', sans-serif;"> {{ accepted }} </div>
-          </div>
-          <div class="boxer">Rejected
-            <div style="font-family: 'Mulish', sans-serif;"> {{ rejected }} </div>
-          </div>
+        <div class="d-flex justify-content-center offtop">
+          <b-form-input
+          id="input-small"
+          size="sm"
+          placeholder="Store URL"
+          type="text"
+          style="width: 280px"
+          trim
+          v-model="shopURL"
+          ></b-form-input>
+        </div>
+        <div>
+          <span class="text-danger">{{msg}}</span>
         </div>
       </div>
-      <div class="flexbox-container" style="display:flex; justify-content:center; margin-top:25px">
-      <b-button class="mt-2" variant="outline-secondary" block @click="hideModal2">Back</b-button>
-      <b-button class="mt-2" variant="outline-primary" block @click="confirm" style="margin-left:40px">Confirm</b-button>
+      <div class="flexbox-container" style="display:flex; justify-content:space-between; margin-top:25px">
+      <b-button class="mt-2" variant="outline-secondary" block @click="hideModal">Cancel</b-button>
+      <b-button class="mt-2" variant="outline-danger" block @click="connect">Connect</b-button>
       </div>
     </b-modal>
   </div>
@@ -104,6 +70,7 @@ import image3 from "./component_assets/shopee.png"
 import image4 from "./component_assets/qoo.png"
 import image5 from "./component_assets/taobao.png"
 import image6 from "./component_assets/lazada.png"
+import axios from './axios'
 
 export default {
   name: 'Connect',
@@ -111,25 +78,15 @@ export default {
     return {
         imageslist: { image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6,},
         isActive1: true,
-        isActive2: true,
+        isActive2: false,
         isActive3: false,
         isActive4: false,
         isActive5: false,
         isActive6: false,
-        platformname: "Shopee",
-        noSKU: "83",
-        accepted: "83",
-        rejected: "0",
-        selected: null,
-        options: [
-          { value: null, text: 'Please select an option' },
-          { value: 'Shopify', text: 'Shopify' },
-          { value: 'Ebay', text: 'Ebay' },
-          { value: 'Shopee', text: 'Shopee' },
-          { value: 'Qoo10', text: 'Qoo10'},
-          { value: 'Taobao', text: 'Taobao' },
-          { value: 'Lazada', text: 'Lazada'},
-        ]
+        active: false,
+        shopURL: '',
+        msg: '',
+        store: {}
     }
   },
   props: {
@@ -139,6 +96,56 @@ export default {
     },
   },
   methods: {
+    activeIntegration(val){
+      for(let i=1; i<7; i++){
+        this[`isActive${i}`] = false
+      }
+      this[`isActive${val}`] = true
+    },
+    openModel(){
+      this.$refs['my-modal'].show();
+    },
+    hideModal(){
+      this.$refs['my-modal'].hide();
+    },
+    connect(){
+      if(this.shopURL){
+        window.location.href = 'http://localhost:8000/shopify/login/?shop='+this.shopURL
+      }
+      else{
+        this.msg = 'Please enter shop url'
+      }
+    }
+  },
+  computed: {
+    
+  },
+  async mounted() {
+    let user = await localStorage.getItem('user')
+    if(this.$route.query.access_code && this.$route.query.shop_url){
+      try{
+        await axios.post('shopify/shopify_shop/', {
+            shop_url: this.$route.query.shop_url,
+            access_code: this.$route.query.access_code,
+            user: JSON.parse(user).pk
+        })
+        alert('shopify integration complete')
+      }
+      catch (e) {
+        alert('shopify integration failed')
+      }
+      this.$router.push({ query: {} })
+    }
+
+    let stores = (await axios.get('shopify/shopify_shop/')).data
+    stores.forEach(store => {
+      console.log(store)
+      if(store.user === JSON.parse(user).pk){
+        this.store = store
+        this.active = true
+      }
+    })
+// start
     connectbtn() {
       this.$refs['my-modal'].show();
     },
@@ -155,6 +162,7 @@ export default {
       this.$refs['my-modal'].hide()
       this.$refs['my-modal2'].hide()
     }
+// end 
   }
 }
 </script>
@@ -208,9 +216,14 @@ body {
   font-family: 'Modak', cursive;
   margin-top: 10px;
 }
+.grayborder {
+  border-style: solid;
+  border-color: gray;
+  border-width: medium;
+}
 .greenborder {
   border-style: solid;
-  border-color: rgb(35, 255, 152);
+  border-color: green;
   border-width: medium;
 }
 .offtop {

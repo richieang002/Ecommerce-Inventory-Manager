@@ -1,16 +1,18 @@
 <template>
+  <form @submit.prevent="">
   <div class="login">
-    <img :src="image" width="300" height="80" class="offtop"> 
+    <img src="./component_assets/group.png" width="300" height="80" class="offtop"> 
     <h6>Consolidating Your Ecommerce Needs</h6>
     <div class="d-flex justify-content-center offtop">
       <b-form-input
       class="loginemail"
       id="input-small" 
       size="sm"
-      placeholder="Email Address" 
-      type="email"
+      placeholder="Username"
+      type="text"
       style="width: 280px"
       trim
+      v-model="username"
       ></b-form-input>
     </div>
 
@@ -23,21 +25,25 @@
       type="password"
       style="width: 280px"
       trim
+      v-model="password"
       ></b-form-input>
     </div>
+        <ul class="text-danger mt-2"><li v-for="(m, index) in msg" :key="index">{{ m }}</li></ul>
+
     <div  class="center-block text-center">
-      <button class="btn1" @click="registerPage()">Create Account</button>
+      <button class="btn1" @click="submit('register')">Create Account</button>
       <div class="empty">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</div>
       <button class="btn1">Forget Password</button>
     </div>
     <div  class="center-block text-center">
-      <button class="btn3 offtop2" @click="finishLogin()">Log in</button>
+      <button class="btn3 offtop2" @click="submit('login')">Log in</button>
     </div>
   </div>
+  </form>
 </template>
 
 <script>
-import image from "./component_assets/group.png"
+import axios from 'axios'
   
   export default {
     name: 'Login',
@@ -46,18 +52,39 @@ import image from "./component_assets/group.png"
     },
     data() {
       return {
-        image: image,
-        email: '',
-        password: ''
-        
+        username: '',
+        password: '',
+        msg: '',
       }
     },
     methods: {
-      registerPage() {
-        this.$router.push({ path: '/register'})
-      },
-      finishLogin() {
-        this.$router.push({ path: '/user'})
+      async submit(action) {
+        if (action == 'register') {
+          this.$router.push({ path: '/register'})
+        }
+        else if (action == 'login') {
+          try{
+            const response = await axios.post('auth/login/', {
+            username: this.username,
+            password: this.password
+            });
+            localStorage.setItem('token', response.data.key);
+
+            // save user details
+            const user = await axios.get('auth/user/', {
+              headers: {
+                Authorization: `Token ${response.data.key}`
+              }
+            });
+            localStorage.setItem('user', JSON.stringify(user.data));
+
+            // return to dashboard
+            this.$router.push({ path: '/user'});
+          }
+          catch (error) {
+            this.msg = Object.values(error.response.data).flat()
+          }
+        }
       }
     }
   }

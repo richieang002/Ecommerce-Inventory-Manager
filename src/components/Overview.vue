@@ -4,14 +4,7 @@
     <div class="display">
       <div class="flexbox-container" style="display:flex; justify-content:space-between; margin-top:25px">
         <div class="title-header" style="flex:1; text-align:left; margin-left:20px;">Overview</div>
-        <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">Fake User
-          <b-dropdown size="sm"  variant="link" toggle-class="text-decoration-none" no-caret>
-            <template #button-content>
-              <b-avatar></b-avatar>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-          </b-dropdown>
-        </div>
+        <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">{{username}} <b-avatar></b-avatar></div>
       </div>
       <div style="margin-left:20px; margin-right:20px; margin-top:20px">
         <b-container fluid class="p-4">
@@ -85,20 +78,20 @@ export default {
   name: 'Overview',
   data() {
     return {
-      items: { dailyOrders: 'asd', weeklyOrders: '123', purchasePerHour: '222', revPerDay: '123',  netRev: '567'},
-      unfulfilled: '60',
-      overdue: '30',
-      shipped: '43',
-      closed: '367'
+        username: ''
+        items: { dailyOrders: 'asd', weeklyOrders: '123', purchasePerHour: '222', revPerDay: '123',  netRev: '567'},
+        unfulfilled: '60',
+        overdue: '30',
+        shipped: '43',
+        closed: '367'
     }
   },
-  methods: {
-    currentDateTime() {
+    methods: {
+      currentDateTime() {
       const current = new Date();
       const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
       const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
       const dateTime = date +' '+ time;
-      
       return dateTime;
     }
   },
@@ -110,6 +103,9 @@ export default {
   },
   computed: {
     
+  },
+  created() {
+    this.username = JSON.parse(localStorage.getItem('user')).username
   }
 }
 </script>

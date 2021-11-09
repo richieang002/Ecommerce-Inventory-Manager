@@ -4,14 +4,7 @@
     <div class="display">
       <div class="flexbox-container" style="display:flex; justify-content:space-between; margin-top:25px">
         <div class="title-header" style="flex:1; text-align:left; margin-left:20px;">Products</div>
-        <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">Fake User
-          <b-dropdown size="sm"  variant="link" toggle-class="text-decoration-none" no-caret>
-            <template #button-content>
-              <b-avatar></b-avatar>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-          </b-dropdown>
-        </div>
+        <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">{{username}} <b-avatar></b-avatar></div>
       </div>
       <div class="flexbox-container" style="display:flex; margin-top:30px">
         <div class="link1" style="flex:1;"><router-link to="/products/summary" style="text-decoration: none;">Summary</router-link></div>
@@ -31,7 +24,7 @@ export default {
   name: 'Overview',
   data() {
     return {
-        
+        username:''
     }
   },
   props: {
@@ -42,6 +35,9 @@ export default {
   },
   computed: {
     
+  },
+  created() {
+    this.username = JSON.parse(localStorage.getItem('user')).username
   }
 }
 </script>

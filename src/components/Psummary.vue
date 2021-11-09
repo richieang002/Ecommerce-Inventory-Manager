@@ -43,13 +43,13 @@
       small
       @filtered="onFiltered"
     >
-      <template #cell(Image)="row">
-        <b-img class="myImage" fluid v-bind:src=row.item.Image rounded="Rounded image" alt="image path" width="75">
+      <template #cell(image)="row">
+        <b-img class="myImage" fluid v-bind:src=row.item.image rounded="Rounded image" alt="image path" width="75">
         </b-img>
       </template>
-      <template #cell(Edit)="row">
-        <b-button size="sm" @click="edit(row.items, row.index, $event.target)" class="mr-1">
-         Edit
+      <template #cell(Delete)="row">
+        <b-button size="sm" @click="edit(row.items, row.item, $event.target)" class="mr-1 btn-danger">
+         Delete
         </b-button>
       </template>
 
@@ -61,17 +61,19 @@
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
 
      <template>
-      <p>DUMMY TEXT DK EDIT WHAT</p>
+      <p>Do you want to delete this product?</p>
+       <b-form-checkbox v-model="shopify">&nbsp;Shopify</b-form-checkbox>
+       <div><span class="text-danger">{{msg}}</span></div>
     </template>
 
       <pre>{{ infoModal.Items }}</pre>
-      <template #modal-footer="{ ok, cancel}">
+      <template #modal-footer="{ cancel}">
       <!-- Emulate built in modal footer ok and cancel button actions -->
-      <b-button size="sm" variant="success" @click="ok()">
-        Save
+      <b-button size="sm" variant="secondary" @click="cancel()">
+        Cancel
       </b-button>
-      <b-button size="sm" variant="danger" @click="cancel()">
-        Discard
+      <b-button size="sm" variant="danger" @click="delete_product">
+        Delete
       </b-button>
     </template>
     </b-modal>
@@ -83,7 +85,7 @@
     <b-col class="my-1">
         <b-pagination
           v-model="currentPage"
-          :total-rows="totalRows"
+          :total-rows="rows"
           :per-page="perPage"
           align="right"
           size="sm"
@@ -97,23 +99,13 @@
 
 </style>
 <script>
+  import axios from "./axios";
+
   export default {
     data() {
       return {
-        items: [
-          { Image: "https://www.tutorialsplane.com/wp-content/uploads/2018/02/27867786_1714460465242017_6847995972742989230_n.jpg", Item: 'Item Name1', Tags: 'A B' , Quantity: 10, SKU:'itemSKU1', Platform:'platformA , PlatformE, PlatformF', Collection:'A , B, C'},
-          { Image: "https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", Item: 'Item Name2', Tags: 'A B' , Quantity: 10, SKU:'itemSKU2', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name3', Tags: 'A B' , Quantity: 10, SKU:'itemSKU3', Platform:'platformC', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name4', Tags: 'A B' , Quantity: 10, SKU:'itemSKU4', Platform:'platformD', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name5', Tags: 'A B' , Quantity: 10, SKU:'itemSKU5', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name6', Tags: 'A B' , Quantity: 10, SKU:'itemSKU6', Platform:'platformC', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name7', Tags: 'A B' , Quantity: 10, SKU:'itemSKU7', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name8', Tags: 'A B' , Quantity: 10, SKU:'itemSKU8', Platform:'platformC', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name9', Tags: 'A B' , Quantity: 10, SKU:'itemSKU9', Platform:'platformB', Collection:'A , B, C'},
-          { Image: 'file/path', Item: 'Item Name10', Tags: 'A B' , Quantity: 10, SKU:'itemSKU10', Platform:'platformC', Collection:'A , B, C'}
-        ],
-        fields: ['Image', 'Item', 'Platform','Collection',"Edit"],
-        totalRows: 1,
+        items: [],
+        fields: ['image', 'title', 'platform','Collection',"Delete"],
         currentPage: 1,
         perPage: 5,
         //pageOptions: [5, 10, 15, { value: 100, text: "Show More" }],
@@ -123,10 +115,16 @@
           id: 'info-modal',
           title: '',
           content: ''
-        }
+        },
+        shopify: false,
+        msg: '',
+        selectedItem: {}
       }
     },
     computed: {
+      rows() {
+        return this.items.length
+      },
       sortOptions() {
         // Create an options list from our fields
         return this.fields
@@ -141,10 +139,32 @@
       this.totalRows = this.items.length
     },
     methods: {
-      edit(items, index, button) {
-        this.infoModal.title = `Edit: ${index}`
+      edit(items, item, button) {
+        console.log(item)
+        this.infoModal.title = `Delete: ${item.title}`
         this.infoModal.content = JSON.stringify(items, null, 2)
+        this.msg = ''
+        this.selectedItem = item
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+      },
+      async delete_product() {
+        if(!this.shopify){
+          this.msg = 'Please select platform to delete'
+          return
+        }
+        try{
+        await axios.post('shopify/product/delete/', {
+          id: this.selectedItem.variant_id
+        })
+        this.items = this.items.filter(item => {
+          return item.variant_id !== this.selectedItem.variant_id
+        })
+        alert('Update Success')
+        this.$root.$emit('bv::hide::modal', this.infoModal.id)
+      }
+      catch (e) {
+        console.log(e)
+      }
       },
         resetInfoModal() {
         this.infoModal.title = ''
@@ -154,6 +174,15 @@
         // Trigger pagination to update the number of buttons/pages due to filtering
         this.totalRows = filteredItems.length
         this.currentPage = 1
+      }
+    },
+    async created() {
+      try{
+        let response = (await axios.get('shopify/products/')).data
+        this.items = response.products
+      }
+      catch (e) {
+        console.log(e)
       }
     }
   }
