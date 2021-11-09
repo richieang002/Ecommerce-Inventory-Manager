@@ -8,7 +8,7 @@
     <div class="btn4">Connected </div>
 
     <div class="flexbox-container platform-body" style="display:flex; justify-content:space-evenly; margin-bottom:30px">
-        <div style="margin:50px 50px 50px 50px">
+      <div style="margin:50px 50px 50px 50px">
         <b-container fluid class="p-4">
             <b-row>
                 <b-col>
@@ -36,7 +36,7 @@
                 </b-col>
             </b-row>
         </b-container>
-        </div>
+      </div>
     </div>
     <b-modal ref="my-modal" hide-footer title="Connect To Shopify">
       <div class="d-block text-center">
@@ -76,12 +76,7 @@ export default {
   name: 'Connect',
   data() {
     return {
-        image1: image1,
-        image2: image2,
-        image3: image3,
-        image4: image4,
-        image5: image5,
-        image6: image6,
+        imageslist: { image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6,},
         isActive1: true,
         isActive2: false,
         isActive3: false,
@@ -89,9 +84,9 @@ export default {
         isActive5: false,
         isActive6: false,
         active: false,
-      shopURL: '',
-      msg: '',
-      store: {}
+        shopURL: '',
+        msg: '',
+        store: {}
     }
   },
   props: {
@@ -150,6 +145,24 @@ export default {
         this.active = true
       }
     })
+// start
+    connectbtn() {
+      this.$refs['my-modal'].show();
+    },
+    hideModal() {
+      this.$refs['my-modal'].hide()
+    },
+    connect() {
+      this.$refs['my-modal2'].show();
+    },
+    hideModal2() {
+      this.$refs['my-modal2'].hide()
+    },
+    confirm() {
+      this.$refs['my-modal'].hide()
+      this.$refs['my-modal2'].hide()
+    }
+// end 
   }
 }
 </script>
@@ -164,6 +177,11 @@ body {
   text-align:left;
   font-family: 'Mulish', sans-serif;
   font-size: 20px;
+}
+.selection {
+  border-style: solid;
+  border-width: thin;
+  border-color: lightgray;
 }
 .platform-body {
   border-style: solid;
@@ -207,5 +225,13 @@ body {
   border-style: solid;
   border-color: green;
   border-width: medium;
+}
+.offtop {
+  margin-top: 10px;
+}
+.boxer {
+  margin-top:15px;
+  border-bottom: 1px solid rgb(189, 189, 189);
+  padding-bottom:15px;
 }
 </style>

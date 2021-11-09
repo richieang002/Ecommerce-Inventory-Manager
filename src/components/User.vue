@@ -1,10 +1,11 @@
 <template>
   <div class="user">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <b-button class="button12" block @click="logoutbtn">Logout</b-button>
     <sidebar-menu :menu="menu" width="240px" hideToggle="true">
       <div slot="header" class="offtop">
-        <b-avatar variant="primary" style="background-color:blue" text="L" size="md"></b-avatar>
+        <b-avatar variant="primary" style="background-color:#3751FF;" text="L" size="md"></b-avatar>
         &ensp;{{username}}'s Store
       </div>
     </sidebar-menu>
@@ -36,22 +37,22 @@ export default {
             {
             href: '/user',
             title: 'Overview',
-            icon: 'fa fa-user'
+            icon: 'fa fa-chart-area'
             },
             {
             href: '/import/connect',
             title: 'Import / Export',
-            icon: 'fa fa-chart-area'
+            icon: 'fa fa-forward'
             },
             {
             href: '/products/summary',
             title: 'Products',
-            icon: 'fa fa-chart-area'
+            icon: 'fa fa-adjust'
             },
             {
             href: '/platforms/psummary',
             title: 'Platforms',
-            icon: 'fa fa-chart-area'
+            icon: 'fa fa-users'
             },
         ]
     }
@@ -116,7 +117,11 @@ body {
   margin-top: 20px;
 }
 .v-sidebar-menu {
-  color: rgb(128, 128, 128);
+  color: rgb(255, 254, 254);
+  background-color: #313131;
+}
+.v-sidebar-menu .vsm_expanded .vsm--icon {
+  background-color: #272727;
 }
 .v-sidebar-menu .vsm--list {
   text-align: center;
@@ -149,7 +154,7 @@ a {
   bottom: 0px;
   z-index: 1000;
   left: 0;
-  background-color: #272727;
+  background-color: #313131;
   width: 240px;
   position:fixed;
   border-top-style: thin;
