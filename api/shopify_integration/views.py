@@ -74,7 +74,10 @@ def shopify_products(request):
     for x in products:
         for y in x.attributes['variants']:
             image = list(filter(lambda z: z.attributes['id'] == y.attributes['image_id'], x.attributes['images']))
-            image = image[0] if len(image) else None
+            if len(image):
+                image = image[0]
+            else:
+                image = x.image
             data.append({
                 'id': x.attributes['id'],
                 'platform': 'shopify',
@@ -138,7 +141,10 @@ def shopify_product_export(request):
     for x in products:
         for y in x.attributes['variants']:
             image = list(filter(lambda z: z.attributes['id'] == y.attributes['image_id'], x.attributes['images']))
-            image = image[0] if len(image) else None
+            if len(image):
+                image = image[0]
+            else:
+                pass
             data.append({
                 'id': x.attributes['id'],
                 'platform': 'shopify',
