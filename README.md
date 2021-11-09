@@ -6,7 +6,8 @@ npm install
 ```
 
 ## We need to use virtualenvironment now since there are python packages involved.
-### 1. Download own virtual environment
+### 1. Download virtual environment
+
 ### 2. activate virtual environment 
 ####      For MacOS
 <!-- source <name of virtualenv>/bin/activate -->
@@ -14,13 +15,18 @@ npm install
 ```
 https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html
 ```
-<!-- /<name of virtualenv>/Script/activate -->
+
 ### 3. installing all packages by reading and installing line by line in requirements.txt
 ```
 pip install -r requirements.txt
 ```
 
-### Compiles and hot-reloads for development
+### 4. running the django server
+```
+python api/manage.py runserver
+```
+
+### 5. Compiles and hot-reloads for development
 ```
 npm run serve
 ```
