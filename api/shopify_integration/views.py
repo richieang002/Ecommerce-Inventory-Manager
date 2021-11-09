@@ -116,12 +116,19 @@ def shopify_product_update(request):
 @permission_classes([IsAuthenticated])
 def shopify_product_discard(request):
     variant_id = request.data['id']
+    product_id = request.data['product_id']
     shop = ShopifyShop.objects.get(user=request.user)
     api_version = '2020-10'
     session = shopify.Session(shop.shop_url, api_version, shop.access_code)
     shopify.ShopifyResource.activate_session(session)
-    product = shopify.Variant.find(variant_id)
-    product.destroy()
+    variants = shopify.Variant.find(product_id=product_id)
+
+    if len(variants) > 1:
+        variant = shopify.Variant.find(variant_id)
+        variant.destroy()
+    else:
+        product = shopify.Product.find(product_id)
+        product.destroy()
 
     return Response({'message': 'delete product success'}, status=200)
 

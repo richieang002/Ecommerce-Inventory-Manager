@@ -154,7 +154,8 @@
         }
         try{
         await axios.post('shopify/product/delete/', {
-          id: this.selectedItem.variant_id
+          id: this.selectedItem.variant_id,
+          product_id: this.selectedItem.id
         })
         this.items = this.items.filter(item => {
           return item.variant_id !== this.selectedItem.variant_id
