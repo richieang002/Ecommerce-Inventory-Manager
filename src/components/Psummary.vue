@@ -154,10 +154,10 @@
         }
         try{
         await axios.post('shopify/product/delete/', {
-          id: this.selectedItem.id
+          id: this.selectedItem.variant_id
         })
         this.items = this.items.filter(item => {
-          return item.id !== this.selectedItem.id
+          return item.variant_id !== this.selectedItem.variant_id
         })
         alert('Update Success')
         this.$root.$emit('bv::hide::modal', this.infoModal.id)
