@@ -82,7 +82,7 @@ import axios from 'axios'
             localStorage.setItem('user', JSON.stringify(user.data));
 
             // return to dashboard
-            this.$router.push({ path: '/connect'});
+            this.$router.push({ path: '/import/connect'});
           }
           catch (error) {
             this.msg = Object.values(error.response.data).flat()
