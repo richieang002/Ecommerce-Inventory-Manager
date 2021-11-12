@@ -39,7 +39,6 @@ import ForgetPassword from '@/components/ForgetPassword.vue'
 import User from '@/components/User.vue'
 import Summary from '@/components/Summary.vue'
 import Product from '@/components/Product.vue'
-import Overview from '@/components/Overview.vue'
 import Import from '@/components/Import.vue'
 import Products from '@/components/Products.vue'
 import Platforms from '@/components/Platforms.vue'
@@ -81,17 +80,10 @@ const router = new VueRouter({
       children: [
         { 
           path: "", 
-          component: Overview,
-          children: [
-            { path: "summary", component: Summary },
-          ]
-        },
-        { 
-          path: "/import", 
           component: Import,
           children: [
-            { path: "connect", component: Connect },
-            { path: "export", component: Export },
+            { path: "/connect", component: Connect },
+            { path: "/export", component: Export },
           ]
         },
         { 

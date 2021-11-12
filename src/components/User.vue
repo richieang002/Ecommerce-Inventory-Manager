@@ -35,17 +35,12 @@ export default {
             hiddenOnCollapse: false
             },
             {
-            href: '/user',
-            title: 'Overview',
-            icon: 'fa fa-chart-area'
-            },
-            {
-            href: '/import/connect',
+            href: '/connect',
             title: 'Import / Export',
             icon: 'fa fa-forward'
             },
             {
-            href: '/products/summary',
+            href: '/products/product',
             title: 'Products',
             icon: 'fa fa-adjust'
             },

@@ -6,10 +6,8 @@
         <div class="title-header" style="flex:1; text-align:left; margin-left:20px;">Products</div>
         <div class="main-user" style="flex:1; text-align:right; margin-right:20px;">{{username}} <b-avatar></b-avatar></div>
       </div>
-      <div class="flexbox-container" style="display:flex; margin-top:30px">
-        <div class="link1" style="flex:1;"><router-link to="/products/summary" style="text-decoration: none;">Summary</router-link></div>
-        <div class="link" style="flex:0.2;"></div>
-        <div class="link2" style="flex:1;"><router-link to="/products/product" style="text-decoration: none;">Product</router-link></div>
+      <div class="flexbox-container" style="display:flex; margin-top:30px; justify-content:center;">
+        <div class="link2"><router-link to="/products/product" style="text-decoration: none;">Product</router-link></div>
       </div>
       <div style="margin-left:20px; margin-right:20px; margin-top:50px">
       <router-view></router-view>
@@ -38,6 +36,7 @@ export default {
   },
   created() {
     this.username = JSON.parse(localStorage.getItem('user')).username
+    
   }
 }
 </script>
