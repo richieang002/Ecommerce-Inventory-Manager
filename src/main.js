@@ -82,8 +82,8 @@ const router = new VueRouter({
           path: "", 
           component: Import,
           children: [
-            { path: "/connect", component: Connect },
-            { path: "/export", component: Export },
+            { path: "/import/connect", component: Connect },
+            { path: "/import/export", component: Export },
           ]
         },
         { 

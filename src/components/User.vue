@@ -35,7 +35,7 @@ export default {
             hiddenOnCollapse: false
             },
             {
-            href: '/connect',
+            href: '/import/connect',
             title: 'Import / Export',
             icon: 'fa fa-forward'
             },
