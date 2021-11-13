@@ -38,7 +38,7 @@
         </b-container>
       </div>
     </div>
-    <b-modal ref="my-modal" hide-footer title="Connect To Shopify">
+    <b-modal ref="my-modal" hide-footer title="Connect To Shop">
       <div class="d-block text-center">
         <div class="d-flex justify-content-center offtop">
           <b-form-input
