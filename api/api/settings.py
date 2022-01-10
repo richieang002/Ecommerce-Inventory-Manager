@@ -21,7 +21,7 @@ SITE_ID = 1
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8#%9t2p&#pjzcohl9i3m$hwg2+jt)(kymlq8&dubj39+yke-ew'
+SECRET_KEY = '' #enter django security key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -153,12 +153,12 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # shopify credentials
-SHOPIFY_API_KEY = 'becc1411b181277c95a4d6ab39e6eeb8'
-SHOPIFY_API_SECRET = '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'
+SHOPIFY_API_KEY = '' #enter Shopify API key here
+SHOPIFY_API_SECRET = '' #enter Shopify Auth Password here
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'lazeapi6@gmail.com'
-EMAIL_HOST_PASSWORD = 'abplzzaiomvjggof'
+EMAIL_HOST_USER = '' #enter your email address here
+EMAIL_HOST_PASSWORD = '' #enter password for google token
