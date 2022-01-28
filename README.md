@@ -83,6 +83,6 @@ pip freeze > requirements.txt
 - Richie Ang (Frontend / Frontend connection to Backend )
 - Jefferson Liew (Backend / Frontend connection to Backend )
 - Marcus Teh (Frontend)
-- Ryan (Documentation)
+- Ryan (Backend / Documentation)
 - Xin Kai (Documentation)
-- Lyndon (Documentation
+- Lyndon (Documentation)
