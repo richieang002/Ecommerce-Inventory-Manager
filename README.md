@@ -80,8 +80,8 @@ pip freeze > requirements.txt
 ```
 
 ## Contributors
-- Jefferson Liew (Backend / Frontend connection to Backend / Brand Owner of Daisy Dreams)
-- Richie Ang (Frontend)
+- Jefferson Liew (Backend / Frontend connection to Backend)
+- Richie Ang (Frontend / Frontend connection to Backend)
 - Marcus Teh (Frontend)
 - Ryan (Documentation)
 - Xin Kai (Documentation)
