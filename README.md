@@ -80,9 +80,9 @@ pip freeze > requirements.txt
 ```
 
 ## Contributors
-- Jefferson Liew (Backend / Frontend connection to Backend)
-- Richie Ang (Frontend / Frontend connection to Backend)
+- Richie Ang (Frontend / Integration)
+- Jefferson Liew (Backend / Integration)
 - Marcus Teh (Frontend)
 - Ryan (Documentation)
 - Xin Kai (Documentation)
-- Lyndon (Documentation
+- Lyndon (Documentation)
